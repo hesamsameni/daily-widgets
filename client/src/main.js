@@ -5,7 +5,11 @@ import router from './router'
 import store from './store'
 import '@/assets/scss/main.scss'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
 
+Vue.use(VueMaterial)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 

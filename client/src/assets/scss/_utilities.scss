@@ -1,0 +1,49 @@
+// Turns off input number spinner
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+$margins: (5, 10, 15, 20, 30, 60, 90, 120, 150, 200);
+@each $margin in $margins {
+  .mt--#{$margin} {
+    margin-top: $margin + px !important;
+  }
+  .mb--#{$margin} {
+    margin-bottom: $margin + px !important;
+  }
+  .ml--#{$margin} {
+    margin-left: $margin + px !important;
+  }
+  .mr--#{$margin} {
+    margin-right: $margin + px !important;
+  }
+}
+
+$paddings: (5, 10, 15, 20, 30, 60, 90, 120, 150, 200);
+@each $padding in $paddings {
+  .pt--#{$padding} {
+    padding-top: $padding + px !important;
+  }
+  .pb--#{$padding} {
+    padding-bottom: $padding + px !important;
+  }
+  .pl--#{$padding} {
+    padding-left: $padding + px !important;
+  }
+  .pr--#{$padding} {
+    padding-right: $padding + px !important;
+  }
+}
+
+.padding--0 {
+  padding: 0 !important;
+}
+
+.margin--0 {
+  margin: 0 !important;
+}
+.width-100 {
+  width: 100%;
+}

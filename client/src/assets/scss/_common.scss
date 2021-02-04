@@ -1,6 +1,25 @@
 #app {
-  background-color: #faaca8;
-  background-image: linear-gradient(180deg, #faaca8 0%, #ddd6f3 100%);
+  background-color: $background-color;
+  background-image: $background-gradient;
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
+  height: 100vh;
+  a {
+    text-decoration: none !important;
+    transition: all 300ms ease-in-out;
+    &:hover {
+      text-decoration: none !important;
+    }
+  }
+}
+
+#nav {
+  a {
+    color: $color-ink-white;
+    &.router-link-exact-active {
+      // color: $accent;
+      border-bottom: 1px dashed $color-ink-white;
+      padding-bottom: 10px;
+    }
+  }
 }

@@ -1,0 +1,27 @@
+$panel-shadow: 0 1.4px 1.6px -3px rgba(0, 0, 0, 0.02),
+  0 3.4px 3.8px -3px rgba(0, 0, 0, 0.028),
+  0 6.4px 7.1px -3px rgba(0, 0, 0, 0.035),
+  0 11.4px 12.7px -3px rgba(0, 0, 0, 0.042),
+  0 21.3px 23.8px -3px rgba(0, 0, 0, 0.05), 0 51px 57px -3px rgba(0, 0, 0, 0.07);
+$background-gradient: linear-gradient(180deg, #faaca8 0%, #ddd6f3 100%);
+$background-color: #faaca8;
+
+$panel-background: #ffffff;
+
+//spacing
+$padding: 30px;
+$margin: 30px;
+
+//fontsize
+$title-fontSize: 16px;
+$sub-title-fontSize: 14px;
+$detail-fontSize: 10px;
+
+//border-radius
+$border-radius: 10px;
+
+//colors
+$color-lightgray: #e0e0e0;
+$color-ink-dark: #37474f;
+$color-ink-white: #ffffff;
+$accent: #fd6585;

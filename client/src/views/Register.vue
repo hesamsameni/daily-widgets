@@ -1,55 +1,41 @@
 <template>
   <div>
-    <section id="register">
-      <h1 class="title">Register</h1>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="form-container">
-              <form>
-                <input
-                  type="email"
-                  placeholder="email"
-                  v-model="email"
-                  class="form-control input"
-                  autocomplete
-                />
-                <input
-                  type="password"
-                  placeholder="password"
-                  v-model="password"
-                  class="form-control input"
-                  autocomplete
-                />
-                <input
-                  type="password"
-                  placeholder="repeat password"
-                  v-model="repeat_password"
-                  class="form-control input"
-                  autocomplete
-                />
-              </form>
-              <b-alert show variant="danger" v-if="hasError"
-                ><div v-html="error"></div
-              ></b-alert>
-              <b-alert show variant="success" v-if="isSuccess"
-                >Registered successfully.</b-alert
-              >
-              <button class="btn btn-primary" @click="register">
-                Register
-              </button>
-            </div>
-          </div>
-        </div>
+    <panel title="Register">
+      <div slot="register-form">
+        <form>
+          <md-field>
+            <label>Email</label>
+            <md-input v-model="email" type="email"></md-input>
+          </md-field>
+          <md-field>
+            <label>Password</label>
+            <md-input v-model="password" type="password"></md-input>
+          </md-field>
+          <md-field>
+            <label>Repeat Password</label>
+            <md-input v-model="repeat_password" type="password"></md-input>
+          </md-field>
+          <b-alert show variant="danger" v-if="hasError"
+            ><div v-html="error"></div
+          ></b-alert>
+          <b-alert show variant="success" v-if="isSuccess"
+            >Registered successfully.</b-alert
+          >
+          <md-button class="md-raised md-primary" @click="register"
+            >Register</md-button
+          >
+        </form>
       </div>
-    </section>
+    </panel>
   </div>
 </template>
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel.vue'
 export default {
   name: 'Register',
+  components: { Panel },
   data() {
     return {
       email: '',
@@ -58,10 +44,6 @@ export default {
       error: '',
       hasError: false,
       isSuccess: false,
-      rules: [
-        (value) => !!value || 'Required.',
-        (value) => (value && value.length >= 3) || 'Min 3 characters',
-      ],
     }
   },
   methods: {
@@ -78,6 +60,7 @@ export default {
           this.hasError = false
           this.isSuccess = true
           console.log(response)
+          this.$router.push({ name: 'Contacts' })
         } catch (err) {
           this.isSuccess = false
           this.error = err.response.data.error
