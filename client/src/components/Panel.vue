@@ -3,10 +3,8 @@
     <div class="panel">
       <div class="panel-header">
         <h1 class="title">{{ title }}</h1>
-        <div v-if="route">
-          <md-button :to="route" class="md-raised md-primary">
-            {{ buttonText }}
-          </md-button>
+        <div v-if="hasSearch">
+          <slot name="search-contacts" />
         </div>
       </div>
 
@@ -16,6 +14,7 @@
             <slot name="register-form" />
             <slot name="add-contact-form" />
             <slot name="contacts-list" />
+            <slot name="edit-contact-form" />
           </div>
         </div>
       </div>
@@ -25,6 +24,6 @@
 
 <script>
 export default {
-  props: ['title', 'buttonText', 'route'],
+  props: ['title', 'hasSearch'],
 }
 </script>

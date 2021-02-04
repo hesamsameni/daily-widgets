@@ -6,7 +6,6 @@ module.exports = {
       email: Joi.string().required().email(),
       fullName: Joi.string().required(),
       phoneNumber: Joi.string().required(),
-      dateOfBirth: Joi.string(),
     })
 
     const { error } = schema.validate(req.body)
@@ -25,11 +24,6 @@ module.exports = {
         case 'phoneNumber':
           res.status(400).send({
             error: 'You must provide a valid phone number',
-          })
-          break
-        case 'dateOfBirth':
-          res.status(400).send({
-            error: 'Date Error',
           })
           break
         default:

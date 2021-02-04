@@ -14,5 +14,9 @@ module.exports = (app) => {
       ContactControllerPolicy.addContact,
       ContactController.addContact
     ),
-    app.get('/get-contacts', ContactController.getContacts)
+    app.get('/search-contacts', ContactController.searchContacts),
+    app.get('/get-contacts', ContactController.getContacts),
+    app.get('/get-contact/:id', ContactController.getContact),
+    app.put('/edit-contact/:id', ContactController.editContact),
+    app.delete('/delete-contact/:id', ContactController.deleteContact)
 }

@@ -41,10 +41,16 @@
       align-items: center;
       .wrapper {
         vertical-align: center;
+        cursor: pointer;
         height: 30px;
         margin: 5px;
       }
     }
+  }
+  .no-contacts {
+    text-align: center;
+    padding-top: $padding;
+    padding-bottom: $padding;
   }
 }
 
@@ -71,9 +77,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: $padding/2;
-    margin-bottom: $margin;
-    border-bottom: 1px solid $color-lightgray;
+    // padding-bottom: $padding/2;
+    // border-bottom: 1px solid $color-lightgray;
     .title {
       font-size: $title-fontSize;
     }

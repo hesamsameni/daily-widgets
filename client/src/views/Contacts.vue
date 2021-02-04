@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel title="Contacts" route="/add-contact" buttonText="Add new">
+    <panel title="Contacts" :hasSearch="true">
       <div slot="contacts-list" class="contacts-list">
         <div class="contacts-wrapper" v-if="contacts.length > 0">
           <div
@@ -24,17 +24,36 @@
                 <b-icon icon="envelope" style="color: #1e88e5;"></b-icon>
               </a>
 
-              <div class="wrapper">
+              <router-link :to="'/edit-contact/' + contact.id" class="wrapper">
                 <b-icon icon="pencil" style="color: #90a4ae;"></b-icon>
-              </div>
+              </router-link>
 
-              <div class="wrapper">
+              <div class="wrapper" @click="setUserID(contact.id)">
                 <b-icon icon="trash" style="color: #e53935;"></b-icon>
               </div>
             </div>
           </div>
         </div>
-        <div v-else>No Contact Found</div>
+        <div class="no-contacts" v-else>
+          No contacts found.
+        </div>
+        <div class="text-right">
+          <md-button :to="'/add-contact'" class="md-fab md-mini md-primary">
+            <md-icon
+              ><b-icon icon="plus" style="color: #ffffff;"></b-icon
+            ></md-icon>
+          </md-button>
+        </div>
+      </div>
+      <div slot="search-contacts" >
+        <md-field md-inline>
+          <label>Search</label>
+          <md-input
+            v-model="searchQuery"
+            type="text"
+            @keyup="searchContacts($event)"
+          ></md-input>
+        </md-field>
       </div>
     </panel>
   </div>
@@ -51,22 +70,81 @@ export default {
       contacts: [],
       hasError: false,
       isSuccess: false,
+      searchQuery: '',
     }
   },
   mounted() {
     this.getContacts()
   },
   methods: {
-    async getContacts() {
-      try {
-        const response = await ContactService.getContacts()
-        this.hasError = false
-        this.isSuccess = true
-        this.contacts = response.data
-      } catch (err) {
-        this.isSuccess = false
-        this.error = err.response.data.error
-        this.hasError = true
+    getContacts() {
+      ContactService.getContacts()
+        .then((response) => {
+          this.hasError = false
+          this.isSuccess = true
+          this.contacts = response.data
+        })
+        .catch((e) => {
+          this.isSuccess = false
+          this.error = e.response.data.error
+          this.hasError = true
+        })
+    },
+    deleteContact(id) {
+      ContactService.deleteContact(id)
+        .then((response) => {
+          this.hasError = false
+          this.isSuccess = true
+          console.log(response)
+          this.getContacts()
+        })
+        .catch((e) => {
+          this.isSuccess = false
+          this.error = e.response.data.error
+          this.hasError = true
+        })
+    },
+    setUserID(id) {
+      this.showDeleteModal()
+      this.selectedContact = id
+    },
+    showDeleteModal() {
+      this.$bvModal
+        .msgBoxConfirm('Are you sure you want to delete this contact?', {
+          title: 'Please Confirm',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'primary',
+          okTitle: 'YES',
+          cancelTitle: 'NO',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true,
+        })
+        .then((value) => {
+          if (value == true) {
+            this.deleteContact(this.selectedContact)
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    searchContacts(e) {
+      if (e.target.value.length > 3) {
+        ContactService.searchContact(this.searchQuery)
+          .then((response) => {
+            this.hasError = false
+            this.isSuccess = true
+            this.contacts = response.data
+          })
+          .catch((e) => {
+            this.isSuccess = false
+            this.error = e.response.data.error
+            this.hasError = true
+          })
+      } else {
+        this.getContacts()
       }
     },
   },
